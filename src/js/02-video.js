@@ -1,16 +1,18 @@
 import player from "@vimeo/player";
+import throttle from "lodash.throttle";
+
 const iframe = document.querySelector('iframe');
 const player = new Vimeo.Player(iframe);
 
- const onPlay = function({duration, percent, seconds}) {
-    {
-    duration: 61.857
-    percent: 0.049
-    seconds: 3.034
-}
-};
+ const onPlay = function({seconds}) {
+  
 
-player.on('timeupdate', onPlay);
+
+ };
+localStorage.setItem("videoplayer-current-time", 'fsdfdf'
+);
+console.log(localStorage);
+player.on('timeupdate', throttle(onPlay, 1000));
 
 
 
