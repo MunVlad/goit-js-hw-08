@@ -1,23 +1,35 @@
-const form = document.querySelector('.feedback-form');
-const textarea = document.querySelector('textarea');
-const input = document.querySelector('input');
+import { save, load } from '../js/storage';
+import throttle from 'lodash.throttle';
 
-form.addEventListener('submit', onFormSubmit);
-textarea.addEventListener('input', onTextareaText);
-input.addEventListener('input', onInputText);
+const formEl = document.querySelector('.feedback-form');
+const textareaEl = document.querySelector('[name="message"]');
+const inputEl = document.querySelector('[name="email"]');
+const STORAGE_KEY = 'feedback-form-state';
+
+let feedbackData = {
+  email: '',
+  message: '',
+};
+
+formEl.addEventListener('input', throttle(updateFeedbackData, 500));
+formEl.addEventListener('submit', onFormSubmit);
+
+if (load(STORAGE_KEY) !== undefined) {
+  feedbackData = load(STORAGE_KEY);
+  inputEl.value = feedbackData.email;
+  textareaEl.value = feedbackData.message;
+}
+
+function updateFeedbackData(evt) {
+  feedbackData[evt.target.name] = evt.target.value;
+  save(STORAGE_KEY, feedbackData);
+  }
 
 function onFormSubmit(evt) {
   evt.preventDefault();
-  const formData = new FormData(evt.currentTarget);
-  console.log(formData);
-}
 
-function onTextareaText(evt) {
-  const message = evt.currentTarget.value;
- 
-}
+  console.log(feedbackData);
 
-function onInputText(evt) {
-  const email = evt.currentTarget.value;
-
+  formEl.reset();
+  localStorage.clear();
 }
