@@ -1,2 +1,0 @@
-!function(){var e=document.querySelector(".feedback-form"),t=document.querySelector("textarea"),n=document.querySelector("input");e.addEventListener("submit",(function(e){e.preventDefault();var t=new FormData(e.currentTarget);console.log(t)})),t.addEventListener("input",(function(e){e.currentTarget.value})),n.addEventListener("input",(function(e){e.currentTarget.value}))}();
-//# sourceMappingURL=03-feedback.4c5f11f3.js.map
